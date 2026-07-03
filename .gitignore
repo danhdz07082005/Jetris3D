@@ -1,0 +1,15 @@
+# Godot-specific overrides
+.godot/
+.import/
+export_presets.cfg
+
+# Imported mono binaries
+.mono/
+data_*/
+mono_crash_*.json
+
+# System outputs
+*.exe
+*.pck
+*.console.exe
+Build_Windows/

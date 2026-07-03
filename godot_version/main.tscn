@@ -1,0 +1,82 @@
+[gd_scene load_steps=9 format=3]
+
+[ext_resource type="Script" path="res://main.gd" id="1_main"]
+[ext_resource type="Script" path="res://hud.gd" id="2_hud"]
+[ext_resource type="AudioStream" path="res://audio/move.wav" id="3_move"]
+[ext_resource type="AudioStream" path="res://audio/rotate.wav" id="4_rotate"]
+[ext_resource type="AudioStream" path="res://audio/clear.wav" id="5_clear"]
+[ext_resource type="AudioStream" path="res://audio/gameover.wav" id="6_gameover"]
+[ext_resource type="AudioStream" path="res://audio/bgmusic.wav" id="7_bgmusic"]
+[ext_resource type="Script" path="res://stats.gd" id="8_stats"]
+
+[sub_resource type="Environment" id="Environment_1"]
+background_mode = 1
+background_color = Color(0.07, 0.07, 0.09, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.28, 0.3, 0.48, 1)
+ambient_light_energy = 0.6
+glow_enabled = true
+glow_normalized = false
+glow_intensity = 1.2
+glow_strength = 1.0
+glow_bloom = 0.4
+glow_blend_mode = 1
+glow_hdr_threshold = 1.0
+glow_hdr_scale = 2.0
+tonemap_mode = 1
+tonemap_exposure = 1.1
+tonemap_white = 1.0
+
+[node name="Main" type="Node"]
+script = ExtResource("1_main")
+
+[node name="World3D" type="Node3D" parent="."]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="World3D"]
+environment = SubResource("Environment_1")
+
+[node name="Camera3D" type="Camera3D" parent="World3D"]
+
+[node name="SunLight" type="DirectionalLight3D" parent="World3D"]
+shadow_enabled = true
+
+[node name="FillLight" type="DirectionalLight3D" parent="World3D"]
+
+[node name="LockedBlocks" type="Node3D" parent="World3D"]
+
+[node name="ActiveBlock" type="Node3D" parent="World3D"]
+
+[node name="GhostBlock" type="Node3D" parent="World3D"]
+
+[node name="AudioPlayers" type="Node" parent="."]
+
+[node name="SfxMove" type="AudioStreamPlayer" parent="AudioPlayers"]
+stream = ExtResource("3_move")
+
+[node name="SfxRotate" type="AudioStreamPlayer" parent="AudioPlayers"]
+stream = ExtResource("4_rotate")
+
+[node name="SfxClear" type="AudioStreamPlayer" parent="AudioPlayers"]
+stream = ExtResource("5_clear")
+
+[node name="SfxGameOver" type="AudioStreamPlayer" parent="AudioPlayers"]
+stream = ExtResource("6_gameover")
+
+[node name="BgMusic" type="AudioStreamPlayer" parent="AudioPlayers"]
+stream = ExtResource("7_bgmusic")
+volume_db = -6.0
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="HUDControl" type="Control" parent="HUD"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("2_hud")
+
+[node name="Stats" type="Node" parent="."]
+script = ExtResource("8_stats")
